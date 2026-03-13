@@ -1,0 +1,2125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obedullah | UI/UX & Graphic Designer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-pearl: #f8f6f3;
+            --bg-pearl-dark: #f0ede8;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --text-primary: #1a1a2e;
+            --text-secondary: #4a4a6a;
+            --text-muted: #6b6b8a;
+            --accent: #6366f1;
+            --accent-hover: #4f46e5;
+            --accent-light: rgba(99, 102, 241, 0.08);
+            --accent-secondary: #8b5cf6;
+            --accent-tertiary: #ec4899;
+            --border: rgba(26, 26, 46, 0.08);
+            --shadow: rgba(99, 102, 241, 0.08);
+            --shadow-lg: rgba(99, 102, 241, 0.15);
+            --gradient-1: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-pearl: linear-gradient(135deg, #ffffff 0%, #f8f6f3 50%, #f0ede8 100%);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --glass: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.3);
+        }
+
+        [data-theme="dark"] {
+            --bg-pearl: #0f0f1a;
+            --bg-pearl-dark: #1a1a2e;
+            --bg-secondary: #1a1a2e;
+            --bg-card: #1e1e32;
+            --text-primary: #f8f6f3;
+            --text-secondary: #c4c4d4;
+            --text-muted: #9090a8;
+            --border: rgba(255, 255, 255, 0.08);
+            --shadow: rgba(0, 0, 0, 0.3);
+            --shadow-lg: rgba(0, 0, 0, 0.5);
+            --glass: rgba(30, 30, 50, 0.8);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-pearl);
+            color: var(--text-primary);
+            line-height: 1.7;
+            transition: var(--transition);
+            overflow-x: hidden;
+        }
+
+        /* Pearl Background Effect */
+        .pearl-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .pearl-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .pearl-blob:nth-child(1) {
+            width: 600px;
+            height: 600px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(139, 92, 246, 0.1) 100%);
+            top: -200px;
+            right: -200px;
+            animation-delay: 0s;
+        }
+
+        .pearl-blob:nth-child(2) {
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, rgba(244, 114, 182, 0.08) 100%);
+            bottom: -150px;
+            left: -150px;
+            animation-delay: -5s;
+        }
+
+        .pearl-blob:nth-child(3) {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(139, 92, 246, 0.05) 100%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(30px, -30px) scale(1.05); }
+            50% { transform: translate(-20px, 20px) scale(0.95); }
+            75% { transform: translate(20px, 10px) scale(1.02); }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: particle-float 15s linear infinite;
+        }
+
+        @keyframes particle-float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            padding: 0.75rem 1.5rem;
+            transition: var(--transition);
+            box-shadow: 0 8px 32px var(--shadow);
+        }
+
+        .nav.scrolled {
+            background: var(--bg-secondary);
+            box-shadow: 0 8px 32px var(--shadow-lg);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            position: relative;
+            transition: var(--transition-fast);
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--gradient-1);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .theme-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: var(--accent-light);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background: var(--accent);
+            transform: rotate(180deg);
+        }
+
+        .theme-toggle:hover svg {
+            fill: white;
+        }
+
+        .theme-toggle svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--accent);
+            transition: var(--transition);
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 10px;
+            background: none;
+            border: none;
+        }
+
+        .mobile-toggle span {
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 140px 2rem 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 4rem;
+        }
+
+        .hero-content {
+            flex: 1;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4);
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            letter-spacing: -3px;
+            animation: fadeInUp 0.8s ease 0.1s forwards;
+            opacity: 0;
+        }
+
+        .hero-title span {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .hero-description {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 520px;
+            margin-bottom: 2.5rem;
+            line-height: 1.9;
+            animation: fadeInUp 0.8s ease 0.3s forwards;
+            opacity: 0;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.4s forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: var(--gradient-1);
+            color: white;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px var(--shadow);
+        }
+
+        .btn-download {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            color: white;
+            box-shadow: 0 4px 20px rgba(34, 197, 94, 0.3);
+        }
+
+        .btn-download:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(34, 197, 94, 0.4);
+        }
+
+        .hero-visual {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            width: 420px;
+            height: 480px;
+        }
+
+        .hero-blob {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-1);
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            animation: morph 8s ease-in-out infinite;
+            opacity: 0.15;
+        }
+
+        @keyframes morph {
+            0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+            50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+        }
+
+        .hero-image {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-image img {
+            width: 350px;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 30px;
+            box-shadow: 0 30px 60px var(--shadow-lg);
+            transition: var(--transition);
+        }
+
+        .hero-image img:hover {
+            transform: scale(1.02);
+        }
+
+        .hero-floating-card {
+            position: absolute;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1rem 1.25rem;
+            box-shadow: 0 10px 40px var(--shadow);
+            animation: float-card 4s ease-in-out infinite;
+        }
+
+        .hero-floating-card.card-1 {
+            top: 20px;
+            right: -20px;
+            animation-delay: 0s;
+        }
+
+        .hero-floating-card.card-2 {
+            bottom: 60px;
+            left: -30px;
+            animation-delay: -2s;
+        }
+
+        @keyframes float-card {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .floating-card-content {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .floating-card-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .floating-card-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        .floating-card-text h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .floating-card-text span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-subtitle {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 0.75rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-subtitle::before,
+        .section-subtitle::after {
+            content: '';
+            width: 30px;
+            height: 1px;
+            background: var(--gradient-1);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -1px;
+        }
+
+        /* About Section */
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            max-width: 550px;
+            border-radius: 24px;
+            box-shadow: 0 30px 60px var(--shadow-lg);
+            transition: var(--transition);
+        }
+
+        .about-image img:hover {
+            transform: scale(1.02);
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-1);
+            border-radius: 24px;
+            transform: rotate(3deg);
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .about-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+
+        .about-content p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.9;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            transition: var(--transition);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 2rem;
+        }
+
+        .tool-tag {
+            padding: 0.6rem 1.2rem;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .tool-tag:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px var(--shadow);
+        }
+
+        .tool-tag svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 2rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-1);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px var(--shadow-lg);
+        }
+
+        .skill-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .skill-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
+        }
+
+        .skill-icon svg {
+            width: 28px;
+            height: 28px;
+            fill: white;
+        }
+
+        .skill-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .skill-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .skill-bar {
+            height: 6px;
+            background: var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: var(--gradient-1);
+            border-radius: 10px;
+            transition: width 1.5s ease;
+            width: 0;
+        }
+
+        .skill-percent {
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-top: 0.5rem;
+            display: block;
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 2rem;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 0;
+            background: var(--gradient-1);
+            opacity: 0.05;
+            transition: height 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px var(--shadow-lg);
+            border-color: var(--accent);
+        }
+
+        .service-card:hover::after {
+            height: 100%;
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--accent-light);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-card:hover .service-icon {
+            background: var(--gradient-1);
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .service-icon svg {
+            width: 32px;
+            height: 32px;
+            fill: var(--accent);
+            transition: var(--transition);
+        }
+
+        .service-card:hover .service-icon svg {
+            fill: white;
+        }
+
+        .service-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px var(--shadow-lg);
+        }
+
+        .project-image {
+            height: 280px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.1);
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.9) 0%, rgba(139, 92, 246, 0.9) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-overlay .btn {
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        .project-card:hover .project-overlay .btn {
+            transform: translateY(0);
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-tag {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: var(--accent-light);
+            color: var(--accent);
+            font-size: 0.8rem;
+            font-weight: 600;
+            border-radius: 50px;
+            margin-bottom: 1rem;
+        }
+
+        .project-content h3 {
+            font-size: 1.35rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .project-content p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .project-link:hover {
+            gap: 0.75rem;
+        }
+
+        .project-link svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        /* Testimonials Section */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 2.5rem;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px var(--shadow-lg);
+        }
+
+        .quote-icon {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            opacity: 0.1;
+        }
+
+        .quote-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--accent);
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid transparent;
+            background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+                        var(--gradient-1) border-box;
+        }
+
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .author-info span {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .stars {
+            display: flex;
+            gap: 0.25rem;
+            margin-top: 0.5rem;
+        }
+
+        .stars svg {
+            width: 16px;
+            height: 16px;
+            fill: #f59e0b;
+        }
+
+        /* Contact Section */
+        .contact-wrapper {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 40px;
+            padding: 5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, var(--accent), transparent 30%);
+            animation: rotate 10s linear infinite;
+            opacity: 0.05;
+        }
+
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+
+        .contact-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .contact-content p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .availability {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(34, 197, 94, 0.1);
+            border-radius: 50px;
+            margin-bottom: 2rem;
+        }
+
+        .availability::before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .availability span {
+            color: #22c55e;
+            font-weight: 600;
+        }
+
+        .contact-email {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+        }
+
+        .contact-email a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .contact-email a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 4rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo span {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--gradient-1);
+            border-color: transparent;
+            transform: translateY(-5px) rotate(10deg);
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .social-link svg {
+            width: 22px;
+            height: 22px;
+            fill: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .social-link:hover svg {
+            fill: white;
+        }
+
+        .footer p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 160px;
+            }
+
+            .hero-content {
+                order: 2;
+            }
+
+            .hero-visual {
+                order: 1;
+            }
+
+            .hero-description {
+                margin: 0 auto 2.5rem;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-image-wrapper {
+                width: 350px;
+                height: 400px;
+            }
+
+            .hero-image img {
+                width: 280px;
+                height: 320px;
+            }
+
+            .hero-floating-card {
+                display: none;
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .about-image {
+                display: flex;
+                justify-content: center;
+            }
+
+            .about-stats,
+            .tools {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                top: 10px;
+                width: calc(100% - 20px);
+                transform: translateX(0);
+                left: 10px;
+                border-radius: 20px;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: 10px;
+                right: 10px;
+                background: var(--bg-secondary);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                border-radius: 20px;
+                border: 1px solid var(--border);
+                box-shadow: 0 20px 40px var(--shadow-lg);
+                transform: translateY(-150%);
+                opacity: 0;
+                transition: var(--transition);
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .section {
+                padding: 4rem 1.5rem;
+            }
+
+            .skills-grid,
+            .services-grid,
+            .projects-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-wrapper {
+                padding: 3rem 1.5rem;
+                border-radius: 28px;
+            }
+
+            .contact-email {
+                font-size: 1.1rem;
+            }
+
+            .contact-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Pearl Background -->
+    <div class="pearl-bg">
+        <div class="pearl-blob"></div>
+        <div class="pearl-blob"></div>
+        <div class="pearl-blob"></div>
+    </div>
+
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-container">
+            <a href="#" class="logo">Obed<span>ullah</span></a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="nav-right">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <svg id="sunIcon" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="5"/>
+                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                    </svg>
+                    <svg id="moonIcon" viewBox="0 0 24 24" style="display: none;">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
+                <button class="mobile-toggle" id="mobileToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">Available for Freelance</div>
+            <h1 class="hero-title">UI/UX & <span>Graphic Designer</span></h1>
+            <p class="hero-name">Obedullah</p>
+            <p class="hero-description">Professional creative designer specializing in modern UI/UX design, digital branding, and visual communication. Transforming ideas into compelling visual experiences that captivate and convert.</p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">
+                    View Projects
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                <a href="./Obedullah_CV.pdf" class="btn btn-download" download>
+                    Download CV
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="hero-image-wrapper">
+                <div class="hero-blob"></div>
+                <div class="hero-image">
+                    <img src="./profile.webp" alt="Obedullah - UI/UX Designer">
+                </div>
+                <div class="hero-floating-card card-1">
+                    <div class="floating-card-content">
+                        <div class="floating-card-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                        </div>
+                        <div class="floating-card-text">
+                            <h4>5+ Years</h4>
+                            <span>Experience</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-floating-card card-2">
+                    <div class="floating-card-content">
+                        <div class="floating-card-icon">
+                            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        </div>
+                        <div class="floating-card-text">
+                            <h4>100+</h4>
+                            <span>Projects Done</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="about">
+            <div class="about-image fade-in">
+                <img src="./passionatedesigner.webp" alt="Designer Workspace">
+            </div>
+            <div class="about-content fade-in">
+                <div class="section-subtitle">About Me</div>
+                <h3>Passionate Designer Creating Digital Experiences That Matter</h3>
+                <p>I'm Obedullah, a dedicated UI/UX and Graphic Designer with a passion for transforming complex ideas into intuitive, visually stunning digital experiences. My approach combines aesthetic excellence with user-centered design principles to create interfaces that not only look beautiful but also drive meaningful engagement.</p>
+                <p>With expertise spanning from wireframing and prototyping to final visual designs, I help businesses establish strong digital identities. Every pixel matters, and I'm committed to delivering designs that tell your brand's story while ensuring seamless user experiences.</p>
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">5+</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100+</div>
+                        <div class="stat-label">Projects Completed</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Happy Clients</div>
+                    </div>
+                </div>
+                <div class="tools">
+                    <span class="tool-tag">
+                        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                        Figma
+                    </span>
+                    <span class="tool-tag">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                        Adobe Illustrator
+                    </span>
+                    <span class="tool-tag">
+                        <svg viewBox="0 0 24 24"><path d="M22 9V7h-2V5a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2h2v-2h-2v-2h2v-2h-2V9h2zM4 19V5h14v14H4z"/></svg>
+                        Adobe Photoshop
+                    </span>
+                    <span class="tool-tag">
+                        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"/><path d="M7 12h2v5H7zM11 7h2v10h-2zM15 10h2v7h-2z"/></svg>
+                        Adobe InDesign
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="section" id="skills">
+        <div class="section-header fade-in">
+            <div class="section-subtitle">My Expertise</div>
+            <h2 class="section-title">Professional Skills</h2>
+        </div>
+        <div class="skills-grid">
+            <div class="skill-card fade-in">
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                </div>
+                <h3>UI/UX Design</h3>
+                <p>Creating intuitive user interfaces with seamless experiences that delight users and drive engagement.</p>
+                <div class="skill-bar"><div class="skill-progress" data-width="95"></div></div>
+                <span class="skill-percent">95%</span>
+            </div>
+            <div class="skill-card fade-in">
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24"><path d="M22 9V7h-2V5a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2h2v-2h-2v-2h2v-2h-2V9h2zM4 19V5h14v14H4z"/></svg>
+                </div>
+                <h3>Graphic Design</h3>
+                <p>Crafting visually compelling graphics that communicate brand messages effectively.</p>
+                <div class="skill-bar"><div class="skill-progress" data-width="92"></div></div>
+                <span class="skill-percent">92%</span>
+            </div>
+            <div class="skill-card fade-in">
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24"><path d="M3 3h18v2H3V3zm0 8h18v2H3v-2zm0 8h18v2H3v-2z"/><path d="M7 7h10v2H7V7zm0 8h10v2H7v-2z"/></svg>
+                </div>
+                <h3>Wireframing</h3>
+                <p>Building structured wireframes that lay the foundation for exceptional digital products.</p>
+                <div class="skill-bar"><div class="skill-progress" data-width="90"></div></div>
+                <span class="skill-percent">90%</span>
+            </div>
+            <div class="skill-card fade-in">
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
+                </div>
+                <h3>Prototyping</h3>
+                <p>Developing interactive prototypes that bring design concepts to life for validation.</p>
+                <div class="skill-bar"><div class="skill-progress" data-width="88"></div></div>
+                <span class="skill-percent">88%</span>
+            </div>
+            <div class="skill-card fade-in">
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                </div>
+                <h3>Brand Identity</h3>
+                <p>Developing cohesive brand identities that resonate with audiences and stand out.</p>
+                <div class="skill-bar"><div class="skill-progress" data-width="93"></div></div>
+                <span class="skill-percent">93%</span>
+            </div>
+            <div class="skill-card fade-in">
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
+                </div>
+                <h3>Mobile App UI</h3>
+                <p>Designing mobile-first interfaces for iOS and Android platforms.</p>
+                <div class="skill-bar"><div class="skill-progress" data-width="91"></div></div>
+                <span class="skill-percent">91%</span>
+            </div>
+            <div class="skill-card fade-in">
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z"/></svg>
+                </div>
+                <h3>Web UI Design</h3>
+                <p>Creating responsive web interfaces that combine aesthetics with functionality.</p>
+                <div class="skill-bar"><div class="skill-progress" data-width="94"></div></div>
+                <span class="skill-percent">94%</span>
+            </div>
+            <div class="skill-card fade-in">
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
+                </div>
+                <h3>Social Media Design</h3>
+                <p>Creating scroll-stopping social media visuals that boost engagement.</p>
+                <div class="skill-bar"><div class="skill-progress" data-width="89"></div></div>
+                <span class="skill-percent">89%</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section" id="services">
+        <div class="section-header fade-in">
+            <div class="section-subtitle">What I Offer</div>
+            <h2 class="section-title">My Services</h2>
+        </div>
+        <div class="services-grid">
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z"/></svg>
+                </div>
+                <h3>Website UI Design</h3>
+                <p>Creating stunning, user-friendly website interfaces that convert visitors into customers.</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
+                </div>
+                <h3>Mobile App UI Design</h3>
+                <p>Designing intuitive mobile experiences for iOS and Android applications.</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24"><path d="M3 3h18v2H3V3zm0 8h18v2H3v-2zm0 8h18v2H3v-2z"/><circle cx="8" cy="7" r="2"/><circle cx="16" cy="15" r="2"/></svg>
+                </div>
+                <h3>Flowchart Design</h3>
+                <p>Creating clear, professional flowcharts that visualize processes and user journeys.</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5-7l-3 3.72L9 13l-3 4h12l-4-5z"/></svg>
+                </div>
+                <h3>Poster Design</h3>
+                <p>Eye-catching poster designs that capture attention and communicate your message.</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14zM5 15h14v3H5z"/></svg>
+                </div>
+                <h3>Banner Design</h3>
+                <p>Professional banner designs for web, print, and advertising campaigns.</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                </div>
+                <h3>Logo Design</h3>
+                <p>Memorable logo designs that establish strong brand identity and recognition.</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                </div>
+                <h3>Image Editing</h3>
+                <p>Professional photo editing, retouching, and manipulation services.</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12zM10 9h8v2h-8V9zm0 3h4v2h-4v-2zm0-6h8v2h-8V6z"/></svg>
+                </div>
+                <h3>Social Media Thumbnails</h3>
+                <p>Click-worthy thumbnails that increase video views and social engagement.</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
+                </div>
+                <h3>Social Media Ads Design</h3>
+                <p>High-converting ad creatives optimized for Facebook, Instagram, and more.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section" id="projects">
+        <div class="section-header fade-in">
+            <div class="section-subtitle">My Work</div>
+            <h2 class="section-title">Featured Projects</h2>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card fade-in">
+                <div class="project-image">
+                    <img src="./ecommerce.jpg" alt="E-Commerce Website UI">
+                    <div class="project-overlay">
+                        <a href="#" class="btn btn-primary">View Case Study</a>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <span class="project-tag">UI Design</span>
+                    <h3>E-Commerce Website UI</h3>
+                    <p>A modern e-commerce platform design featuring seamless checkout flow, product showcases, and intuitive navigation for enhanced user experience.</p>
+                    <a href="#" class="project-link">
+                        View Project
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <div class="project-image">
+                    <img src="./mobilebanking.jpg" alt="Mobile Banking App UI">
+                    <div class="project-overlay">
+                        <a href="#" class="btn btn-primary">View Case Study</a>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <span class="project-tag">Mobile App</span>
+                    <h3>Mobile Banking App UI</h3>
+                    <p>Secure and user-friendly mobile banking application with intuitive transaction flows, account management, and financial insights dashboard.</p>
+                    <a href="#" class="project-link">
+                        View Project
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <div class="project-image">
+                    <img src="./restaurant.jpg" alt="Restaurant Branding Design">
+                    <div class="project-overlay">
+                        <a href="#" class="btn btn-primary">View Case Study</a>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <span class="project-tag">Branding</span>
+                    <h3>Restaurant Branding Design</h3>
+                    <p>Complete brand identity for a premium restaurant including logo, menu design, packaging, and marketing collateral.</p>
+                    <a href="#" class="project-link">
+                        View Project
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <div class="project-image">
+                    <img src="./socialmedia.jpg" alt="Social Media Campaign Design">
+                    <div class="project-overlay">
+                        <a href="#" class="btn btn-primary">View Case Study</a>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <span class="project-tag">Social Media</span>
+                    <h3>Social Media Campaign Design</h3>
+                    <p>Comprehensive social media campaign with cohesive visual identity across Instagram, Facebook, and Twitter platforms.</p>
+                    <a href="#" class="project-link">
+                        View Project
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <div class="project-image">
+                    <img src="./startuplanding.jpg" alt="Startup Landing Page UI">
+                    <div class="project-overlay">
+                        <a href="#" class="btn btn-primary">View Case Study</a>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <span class="project-tag">Web Design</span>
+                    <h3>Startup Landing Page UI</h3>
+                    <p>High-converting landing page design for a tech startup with modern aesthetics, clear CTAs, and optimized user flow.</p>
+                    <a href="#" class="project-link">
+                        View Project
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <div class="project-image">
+                    <img src="./mobilefitness.jpg" alt="Mobile Fitness App UI">
+                    <div class="project-overlay">
+                        <a href="#" class="btn btn-primary">View Case Study</a>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <span class="project-tag">Mobile App</span>
+                    <h3>Mobile Fitness App UI</h3>
+                    <p>Engaging fitness tracking app with workout plans, progress visualization, and social features for health-conscious users.</p>
+                    <a href="#" class="project-link">
+                        View Project
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section" id="testimonials">
+        <div class="section-header fade-in">
+            <div class="section-subtitle">Client Feedback</div>
+            <h2 class="section-title">What Clients Say</h2>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card fade-in">
+                <div class="quote-icon">
+                    <svg viewBox="0 0 24 24"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
+                </div>
+                <p class="testimonial-text">"Obedullah delivered exceptional UI designs for our mobile app. His attention to detail and understanding of user experience principles resulted in an interface our users love. Highly recommended!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <img src="./reviewer1.jpg" alt="Sarah Mitchell">
+                    </div>
+                    <div class="author-info">
+                        <h4>Sarah Mitchell</h4>
+                        <span>Product Manager, TechStart</span>
+                        <div class="stars">
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card fade-in">
+                <div class="quote-icon">
+                    <svg viewBox="0 0 24 24"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
+                </div>
+                <p class="testimonial-text">"Working with Obedullah was a pleasure. He transformed our brand identity completely, creating a modern look that perfectly captures our company's vision. The results exceeded our expectations."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <img src="./reviewer2.jpg" alt="James Chen">
+                    </div>
+                    <div class="author-info">
+                        <h4>James Chen</h4>
+                        <span>CEO, Innovate Labs</span>
+                        <div class="stars">
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card fade-in">
+                <div class="quote-icon">
+                    <svg viewBox="0 0 24 24"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
+                </div>
+                <p class="testimonial-text">"Outstanding social media designs that significantly improved our engagement rates. Obedullah understands digital marketing and creates visuals that truly connect with audiences."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <img src="./reviewer3.jpg" alt="Emily Parker">
+                    </div>
+                    <div class="author-info">
+                        <h4>Emily Parker</h4>
+                        <span>Marketing Director, GrowthCo</span>
+                        <div class="stars">
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="contact-wrapper fade-in">
+            <div class="contact-content">
+                <div class="section-subtitle">Get In Touch</div>
+                <h2>Let's Work Together</h2>
+                <p>Have a project in mind? I'd love to hear about it. Let's discuss how we can bring your ideas to life through thoughtful design.</p>
+                <div class="availability">
+                    <span>Available for Freelance Projects</span>
+                </div>
+                <div class="contact-email">
+                    Email: <a href="mailto:obedullah.design@email.com">obedullah.design@email.com</a>
+                </div>
+                <div class="contact-buttons">
+                    <a href="mailto:obedullah.design@email.com" class="btn btn-primary">
+                        Start a Conversation
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                        </svg>
+                    </a>
+                    <a href="portfolio/Obedullah_CV.pdf" class="btn btn-download" download>
+                        Download CV
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">Obed<span>ullah</span></div>
+            <div class="social-links">
+                <a href="#" class="social-link" aria-label="Dribbble">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c5.51 0 10-4.48 10-10S17.51 2 12 2zm6.605 4.61a8.502 8.502 0 011.93 5.314c-.281-.054-3.101-.629-5.943-.271-.065-.141-.12-.293-.184-.445a25.416 25.416 0 00-.564-1.236c3.145-1.28 4.577-3.124 4.761-3.362zM12 3.475c2.17 0 4.154.813 5.662 2.148-.152.216-1.443 1.941-4.48 3.08-1.399-2.57-2.95-4.675-3.189-5A8.687 8.687 0 0112 3.475zm-3.633.803a53.896 53.896 0 013.167 4.935c-3.992 1.063-7.517 1.04-7.896 1.04a8.581 8.581 0 014.729-5.975zM3.453 12.01v-.26c.37.01 4.512.065 8.775-1.215.25.477.477.965.694 1.453-.109.033-.228.065-.336.098-4.404 1.42-6.747 5.303-6.942 5.629a8.522 8.522 0 01-2.19-5.705zM12 20.547a8.482 8.482 0 01-5.239-1.8c.152-.315 1.888-3.656 6.703-5.337.022-.01.033-.01.054-.022a35.318 35.318 0 011.823 6.475 8.4 8.4 0 01-3.341.684zm4.761-1.465c-.086-.52-.542-3.015-1.659-6.084 2.679-.423 5.022.271 5.314.369a8.468 8.468 0 01-3.655 5.715z"/></svg>
+                </a>
+                <a href="#" class="social-link" aria-label="Behance">
+                    <svg viewBox="0 0 24 24"><path d="M22 7h-7V5h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14H15.97c.13 2.211 1.72 2.903 3.353 2.903 1.239 0 2.049-.541 2.403-1.274zm-7.734-4.426h5.618c-.055-1.338-.952-2.25-2.702-2.25-1.672 0-2.66.83-2.916 2.25zM7.5 15.5H3V8.5h4.5c1.48 0 2.5 1.012 2.5 2.5 0 1.387-1.02 2.5-2.5 2.5zm0-4.5H5v3h2.5c.82 0 1.5-.68 1.5-1.5S8.32 11 7.5 11zm.5 8H3v-3h5.5c.82 0 1.5.68 1.5 1.5S8.82 19 8 19z"/></svg>
+                </a>
+                <a href="#" class="social-link" aria-label="LinkedIn">
+                    <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                </a>
+                <a href="#" class="social-link" aria-label="Twitter">
+                    <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+            </div>
+            <p>&copy; 2024 Obedullah. All rights reserved. Crafted with passion.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 20;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const sunIcon = document.getElementById('sunIcon');
+        const moonIcon = document.getElementById('moonIcon');
+        const html = document.documentElement;
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+        updateThemeIcons(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcons(newTheme);
+        });
+
+        function updateThemeIcons(theme) {
+            if (theme === 'dark') {
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            } else {
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            }
+        }
+
+        // Mobile Navigation Toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileToggle.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileToggle.classList.remove('active');
+            });
+        });
+
+        // Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    const skillBars = entry.target.querySelectorAll('.skill-progress');
+                    skillBars.forEach(bar => {
+                        const width = bar.getAttribute('data-width');
+                        bar.style.width = width + '%';
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navbar Background on Scroll
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Active Navigation Link
+        const sections = document.querySelectorAll('section[id]');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Counter Animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            counters.forEach(counter => {
+                const target = parseInt(counter.textContent);
+                const suffix = counter.textContent.includes('+') ? '+' : '';
+                let current = 0;
+                const increment = target / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        counter.textContent = target + suffix;
+                        clearInterval(timer);
+                    } else {
+                        counter.textContent = Math.floor(current) + suffix;
+                    }
+                }, 30);
+            });
+        }
+
+        // Trigger counter animation when about section is visible
+        const aboutSection = document.getElementById('about');
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        counterObserver.observe(aboutSection);
+    </script>
+</body>
+</html>
